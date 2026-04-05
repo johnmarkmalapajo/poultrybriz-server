@@ -39,7 +39,7 @@ app.use('/api/feed',             require('./routes/feed'));
 app.use('/api/feed-consumption', require('./routes/feedConsumption'));
 app.use('/api/equipment',        require('./routes/equipment'));
 app.use('/api/sales',            require('./routes/salesRecord'));
-app.use('/api/expenses',         require('./routes/expensesRecord'));
+app.use('/api/expenses',         require('./routes/expensesrecord'));
 
 
 app.get('/', (req, res) => {
