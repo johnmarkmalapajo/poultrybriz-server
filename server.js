@@ -8,11 +8,11 @@ connectDB();
 
 const app = express();
 
-// ── CORS — allow both local and deployed frontend ──
+// ── CORS ──
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
-  process.env.FRONTEND_URL, // set this in Render env vars
+  process.env.FRONTEND_URL,
 ];
 
 app.use(cors({
@@ -28,24 +28,33 @@ app.use(cors({
 
 app.use(express.json());
 
+// ── API Version ──
+const VERSION = process.env.API_VERSION || 'v1';
+const BASE    = `/api/${VERSION}`;
+
 // ── Routes ──
-app.use('/api/auth',             require('./routes/auth'));
-app.use('/api/dashboard',        require('./routes/dashboard'));
-app.use('/api/flock',            require('./routes/flock'));
-app.use('/api/eggs',             require('./routes/eggs'));
-app.use('/api/health-records',   require('./routes/healthRecord'));
-app.use('/api/mortality-records',require('./routes/mortalityRecord'));
-app.use('/api/feed',             require('./routes/feed'));
-app.use('/api/feed-consumption', require('./routes/feedConsumption'));
-app.use('/api/equipment',        require('./routes/equipment'));
-app.use('/api/sales',            require('./routes/salesRecord'));
-app.use('/api/expenses',         require('./routes/expensesrecord'));
+app.use(`${BASE}/auth`,             require('./routes/auth'));
+app.use(`${BASE}/dashboard`,        require('./routes/dashboard'));
+app.use(`${BASE}/flock`,            require('./routes/flock'));
+app.use(`${BASE}/eggs`,             require('./routes/eggs'));
+app.use(`${BASE}/health-records`,   require('./routes/healthRecord'));
+app.use(`${BASE}/mortality-records`,require('./routes/mortalityRecord'));
+app.use(`${BASE}/feed`,             require('./routes/feed'));
+app.use(`${BASE}/feed-consumption`, require('./routes/feedConsumption'));
+app.use(`${BASE}/equipment`,        require('./routes/equipment'));
+app.use(`${BASE}/sales`,            require('./routes/salesRecord'));
+app.use(`${BASE}/expenses`,         require('./routes/expensesrecord'));
 
-
+// ── Health check ──
 app.get('/', (req, res) => {
-  res.json({ message: '🐔 PoultryBriz API is running!' });
+  res.json({
+    message: '🐔 PoultryBriz API is running!',
+    version: VERSION,
+    baseUrl: `/api/${VERSION}`,
+  });
 });
 
+// ── 404 ──
 app.use((req, res) => {
   res.status(404).json({ success: false, message: 'Route not found' });
 });
@@ -53,4 +62,6 @@ app.use((req, res) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📌 API Version: ${VERSION}`);
+  console.log(`🔗 Base URL: http://localhost:${PORT}/api/${VERSION}`);
 });

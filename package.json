@@ -1,7 +1,7 @@
 {
-  "name": "poultrybriz-backend",
+  "name": "poultrybiz-backend",
   "version": "1.0.0",
-  "description": "Backend API for PoultryBriz - Egginear Agri-Poultry Solutions",
+  "description": "Backend API for PoultryBiz",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -10,10 +10,9 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "dotenv": "^16.6.1",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
-    "mongodb": "^7.1.1",
     "mongoose": "^8.0.3"
   },
   "devDependencies": {
