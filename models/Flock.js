@@ -5,12 +5,9 @@ const flockSchema = new mongoose.Schema({
   breed:          { type: String, trim: true, default: '' },
   source:         { type: String, trim: true, default: '' },
   dateAcquired:   { type: Date, default: Date.now },
-  qtyPurchase:    { type: Number, default: 0 },  // Quantity at Purchase
-  currentQty:     { type: Number, default: 0 },  // Current Quantity
-  productiveRate: { type: Number, default: 0 },  // percentage
-  mortalityRate:  { type: Number, default: 0 },  // percentage
-  isActive:       { type: Boolean, default: true },
+  qtyPurchase:    { type: Number, default: 0 },
+  currentQty:     { type: Number, default: 0 },
   notes:          { type: String, trim: true, default: '' },
 }, { timestamps: true });
 
-module.exports = mongoose.models.Flock || mongoose.model('Flock', flockSchema);
+module.exports = mongoose.model('Flock', flockSchema);
